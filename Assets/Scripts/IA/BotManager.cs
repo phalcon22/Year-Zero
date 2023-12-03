@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BotManager : MonoBehaviour
 {
@@ -69,15 +67,15 @@ public class BotManager : MonoBehaviour
         int res = GetPayLimiterIndex(costs, pop, forBuilding);
         switch (res)
         {
-            case (-2):
+            case -2:
                 return ObjectiveState.NeedPop;
-            case (-1):
+            case -1:
                 return ObjectiveState.Activated;
-            case (0):
+            case 0:
                 return ObjectiveState.NeedEnergy;
-            case (1):
+            case 1:
                 return ObjectiveState.NeedOre;
-            case (2):
+            case 2:
                 return ObjectiveState.NeedFood;
             default:
                 print("wtf");

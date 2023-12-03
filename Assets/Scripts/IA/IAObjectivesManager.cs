@@ -62,36 +62,36 @@ public class IAObjectivesManager : MonoBehaviour
         }
         switch (currentObjective.state)
         {
-            case (ObjectiveState.Deactivated):
+            case ObjectiveState.Deactivated:
                 print("wtf");
                 break;
-            case (ObjectiveState.Activated):
+            case ObjectiveState.Activated:
                 break;
-            case (ObjectiveState.Done):
+            case ObjectiveState.Done:
                 NextObjective();
                 break;
-            case (ObjectiveState.NeedBuilder):
+            case ObjectiveState.NeedBuilder:
                 NeedSomething(NeedBuilder);
                 break;
-            case (ObjectiveState.NeedBuilding):
+            case ObjectiveState.NeedBuilding:
                 NeedSomething(NeedBuilding);
                 break;
-            case (ObjectiveState.NeedEnergy):
+            case ObjectiveState.NeedEnergy:
                 NeedSomething(NeedEnergy);
                 break;
-            case (ObjectiveState.NeedOre):
+            case ObjectiveState.NeedOre:
                 NeedSomething(NeedOre);
                 break;
-            case (ObjectiveState.NeedFood):
+            case ObjectiveState.NeedFood:
                 NeedSomething(NeedFood);
                 break;
-            case (ObjectiveState.NeedPop):
+            case ObjectiveState.NeedPop:
                 NeedSomething(NeedPop);
                 break;
-            case (ObjectiveState.NeedWait):
+            case ObjectiveState.NeedWait:
                 waittingTime = 10;
                 break;
-            case (ObjectiveState.SuicideTroop):
+            case ObjectiveState.SuicideTroop:
                 SuicideTroop();
                 break;
         }
