@@ -30,7 +30,7 @@ public class GameplayMenu : MonoBehaviour
 
     public void SetCamMoveMouse(bool val)
     {
-        PlayerPrefs.SetInt("camMoveMouse", (val) ? 1 : 0);
+        PlayerPrefs.SetInt("camMoveMouse", val ? 1 : 0);
     }
 
     public void SetCamMoveKeySpeed(float val)
@@ -40,6 +40,6 @@ public class GameplayMenu : MonoBehaviour
 
     public void SetHelpBubble(bool val)
     {
-        PlayerPrefs.SetInt("helpBubble", (val) ? 1 : 0);
+        PlayerPrefs.SetInt("helpBubble", val ? 1 : 0);
     }
 }

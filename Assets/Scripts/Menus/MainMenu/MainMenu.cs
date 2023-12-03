@@ -50,9 +50,9 @@ public class MainMenu : MonoBehaviourPunCallbacks {
     void CheckGameplay()
     {
         InitFloatPrefs("camMoveMouseSpeed", 0.5f);
-        InitFloatPrefs("camMoveMouse", 1);
+        InitIntPrefs("camMoveMouse", 1);
         InitFloatPrefs("camMoveKeySpeed", 0.5f);
-        InitFloatPrefs("helpBubble", 1);
+        InitIntPrefs("helpBubble", 1);
     }
 
     void CheckSound()
@@ -71,6 +71,14 @@ public class MainMenu : MonoBehaviourPunCallbacks {
         if (!PlayerPrefs.HasKey(key))
         {
             PlayerPrefs.SetFloat(key, value);
+        }
+    }
+
+    void InitIntPrefs(string key, int value)
+    {
+        if (!PlayerPrefs.HasKey(key))
+        {
+            PlayerPrefs.SetInt(key, value);
         }
     }
 
