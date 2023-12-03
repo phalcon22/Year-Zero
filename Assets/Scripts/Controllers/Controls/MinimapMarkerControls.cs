@@ -60,10 +60,10 @@ public class MinimapMarkerControls : PlayerControls
         RPCCreateMarker(pos);
         if (!PhotonNetwork.OfflineMode)
         {
+            Hashtable tmp = PhotonNetwork.CurrentRoom.CustomProperties;
             foreach (Player player in PhotonNetwork.PlayerList)
             {
-                Hashtable tmp = player.CustomProperties;
-                if ((int)tmp["Team"] == InstanceManager.instanceManager.GetTeam() && player != PhotonNetwork.LocalPlayer)
+                if ((int)tmp["Player" + PhotonNetwork.LocalPlayer.ActorNumber + "Team"] == InstanceManager.instanceManager.GetTeam() && player != PhotonNetwork.LocalPlayer)
                 {
                     photonView.RPC("RPCCreateMarker", player, pos);
                 }

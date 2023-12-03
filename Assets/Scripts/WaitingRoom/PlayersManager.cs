@@ -109,52 +109,50 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
     void StartGame()
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        SetCustomPropForAll();
-        string mapName = PlayerPrefs.GetString("MapName");
-        PhotonNetwork.LoadLevel(mapName);
+        SetRoomProperties();
     }
 
-    void SetCustomPropForAll()
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
+        if (propertiesThatChanged.ContainsKey("GameReady"))
+        {
+            string mapName = PlayerPrefs.GetString("MapName");
+            PhotonNetwork.LoadLevel(mapName);
+        }
+    }
+
+    void SetRoomProperties()
+    {
+        Hashtable roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
         foreach (Transform playerSettings in playersList)
         {
             if (playerSettings.GetComponent<PlayerSettings>() != null)
             {
                 PlayerSettings settings = playerSettings.GetComponent<PlayerSettings>();
-                Hashtable table = new Hashtable
-                {
-                    { "Race", settings.raceDropdown.value },
-                    { "Team", settings.teamDropdown.value },
-                    { "Color", settings.colorDropdown.value },
-                    { "MyCoords", SetCoords(settings.teamDropdown.value) }
-                };
-                playerSettings.GetComponent<PhotonView>().Owner.SetCustomProperties(table);
+                string prefix = "Player" + playerSettings.GetComponent<PhotonView>().Owner.ActorNumber.ToString();
+                roomProperties.Add(prefix + "Race", settings.raceDropdown.value);
+                roomProperties.Add(prefix + "Team", settings.teamDropdown.value);
+                roomProperties.Add(prefix + "Color", settings.colorDropdown.value);
+                roomProperties.Add(prefix + "MyCoords", SetCoords(settings.teamDropdown.value));
             }
         }
-        int i = 1;
-        Hashtable myTable = PhotonNetwork.LocalPlayer.CustomProperties;
+        int i = 1; //Starts at 1 because there is special Bot0 for debug mode
         foreach (Transform playerSettings in playersList)
         {
             if (playerSettings.GetComponent<BotSettings>() != null)
             {
                 BotSettings settings = playerSettings.GetComponent<BotSettings>();
-                AddOrReplace(myTable, "Race" + i, settings.raceDropdown.value);
-                AddOrReplace(myTable, "Team" + i, settings.teamDropdown.value);
-                AddOrReplace(myTable, "Color" + i, settings.colorDropdown.value);
-                AddOrReplace(myTable, "MyCoords" + i, SetCoords(settings.teamDropdown.value));
+                string prefix = "Bot" + playerSettings.GetComponent<PhotonView>().Owner.ActorNumber.ToString();
+                roomProperties.Add(prefix + "Race", settings.raceDropdown.value);
+                roomProperties.Add(prefix + "Team", settings.teamDropdown.value);
+                roomProperties.Add(prefix + "Color", settings.colorDropdown.value);
+                roomProperties.Add(prefix + "MyCoords", SetCoords(settings.teamDropdown.value));
                 i++;
             }
         }
         PlayerPrefs.SetInt("BotNumber", i - 1);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myTable);
-    }
-
-    void AddOrReplace<T>(Hashtable table, string key, T val)
-    {
-        if (table.ContainsKey(key))
-            table[key] = val;
-        else
-            table.Add(key, val);
+        roomProperties.Add("GameReady", true);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
     }
 
     Vector3 SetCoords(int team)

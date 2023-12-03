@@ -94,7 +94,7 @@ public class IAManager : MonoBehaviourPunCallbacks
         {
             return Int2Color(color);
         }
-        return Int2Color((int)player.CustomProperties["Color"]);
+        return Int2Color((int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + player.ActorNumber + "Color"]);
     }
 
     public Color32 GetBotColor(int index)
@@ -131,7 +131,7 @@ public class IAManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                return (int)unit.photonView.Owner.CustomProperties["Team"] != GetTeam();
+                return (int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + unit.photonView.Owner.ActorNumber + "Team"] != GetTeam();
             }
         }
         else if (unit.botIndex == -2)
@@ -140,7 +140,7 @@ public class IAManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            return (GetTeam() != InstanceManager.instanceManager.GetBot(unit.botIndex).GetTeam());
+            return GetTeam() != InstanceManager.instanceManager.GetBot(unit.botIndex).GetTeam();
         }
     }
 

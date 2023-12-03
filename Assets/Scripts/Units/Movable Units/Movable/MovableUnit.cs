@@ -163,7 +163,7 @@ public class MovableUnit : DestructibleUnit {
 
     public void Hack()
     {
-        if (photonView.IsMine || (int)photonView.Owner.CustomProperties["Team"] == InstanceManager.instanceManager.GetTeam())
+        if (photonView.IsMine || (int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + photonView.Owner.ActorNumber +"Team"] == InstanceManager.instanceManager.GetTeam())
             return;
 
         InstanceManager.instanceManager.mySelectableObjs.Add(this);

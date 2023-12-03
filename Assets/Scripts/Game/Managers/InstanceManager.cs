@@ -63,12 +63,12 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
     void InitBots()
     {
         int i = 1;
-        Hashtable myTable = PhotonNetwork.LocalPlayer.CustomProperties;
-        while (myTable.ContainsKey("Race" + i))
+        Hashtable myTable = PhotonNetwork.CurrentRoom.CustomProperties;
+        while (myTable.ContainsKey("Bot" + i + "Race"))
         {
             IAManager bot = PhotonNetwork.Instantiate(botPrefab, Vector3.zero, Quaternion.identity).GetComponent<IAManager>();
             bot.gameObject.name = "Bot" + i;
-            bot.Init(i, (int)myTable["Race"+ i], (int)myTable["Team" + i], (int)myTable["Color" + i], (Vector3)myTable["MyCoords" + i]);
+            bot.Init(i, (int)myTable["Bot" + i + "Race"], (int)myTable["Bot" + i + "Team"], (int)myTable["Bot" + i + "Color"], (Vector3)myTable["Bot" + i + "MyCoords"]);
             i++;
         }
         if (debugMode)
@@ -76,7 +76,6 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
             IAManager bot = Instantiate((GameObject)Resources.Load(botPrefab)).GetComponent<IAManager>();
             bot.gameObject.name = "Bot0";
             bot.Init(0, 1, 1, 1, new Vector3 (15, 1, 15));
-            i++;
         }
     }
 
@@ -85,12 +84,12 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
         Vector3 myCoords;
         if (!PhotonNetwork.OfflineMode && SceneManager.GetActiveScene().name != "Tutorial" || SceneManager.GetActiveScene().name == "GameTest" && !offlineMode)
         {
-            myCoords = (Vector3)PhotonNetwork.LocalPlayer.CustomProperties["MyCoords"];
+            myCoords = (Vector3)PhotonNetwork.CurrentRoom.CustomProperties["Player" + PhotonNetwork.LocalPlayer.ActorNumber + "MyCoords"];
 
-            Hashtable customProp = PhotonNetwork.LocalPlayer.CustomProperties;
-            race = (int)customProp["Race"];
-            team = (int)customProp["Team"];
-            color = (int)customProp["Color"];
+            Hashtable customProp = PhotonNetwork.CurrentRoom.CustomProperties;
+            race = (int)customProp["Player" + PhotonNetwork.LocalPlayer.ActorNumber + "Race"];
+            team = (int)customProp["Player" + PhotonNetwork.LocalPlayer.ActorNumber + "Team"];
+            color = (int)customProp["Player" + PhotonNetwork.LocalPlayer.ActorNumber + "Color"];
         }
         else
         {
@@ -228,7 +227,7 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
         {
             return MultiplayerTools.Int2Color(color);
         }
-        return MultiplayerTools.Int2Color((int)player.CustomProperties["Color"]);
+        return MultiplayerTools.Int2Color((int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + player.ActorNumber + "Color"]);
     }
 
     public Color32 GetBotColor(int index)

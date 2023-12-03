@@ -33,7 +33,7 @@ public class MultiplayerTools : MonoBehaviour
         {
             if (unit.botIndex == -1)
             {
-                res = (int)unit.photonView.Owner.CustomProperties["Team"];
+                res = (int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + unit.photonView.Owner.ActorNumber + "Team"];
             }
             else if (unit.botIndex == -2)
             {
@@ -41,7 +41,7 @@ public class MultiplayerTools : MonoBehaviour
             }
             else
             {
-                res = (int)PhotonNetwork.MasterClient.CustomProperties["Team" + unit.botIndex];
+                res = (int)PhotonNetwork.CurrentRoom.CustomProperties["Bot" + unit.botIndex + "Team"];
             }
         }
         return res;
@@ -69,7 +69,7 @@ public class MultiplayerTools : MonoBehaviour
         {
             if (unit.botIndex == -1)
             {
-                res = (int)unit.photonView.Owner.CustomProperties["Color"];
+                res = (int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + unit.photonView.Owner.ActorNumber.ToString() + "Color"];
             }
             else if (unit.botIndex == -2)
             {
@@ -77,7 +77,7 @@ public class MultiplayerTools : MonoBehaviour
             }
             else
             {
-                res = (int)PhotonNetwork.MasterClient.CustomProperties["Color" + unit.botIndex];
+                res = (int)PhotonNetwork.CurrentRoom.CustomProperties["Bot" + unit.botIndex + "Color"];
             }
         }
         return Int2Color(res);
