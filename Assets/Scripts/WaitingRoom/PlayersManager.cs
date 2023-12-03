@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayersManager : MonoBehaviourPunCallbacks {
 
@@ -61,17 +61,20 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
     void InitSettings()
     {
-        customProp = new Hashtable();
         readyToggle.gameObject.SetActive(!PhotonNetwork.IsMasterClient);
         startButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
         addBotButton.SetActive(PhotonNetwork.IsMasterClient);
-        customProp.Add(isReady, PhotonNetwork.IsMasterClient);
+
+        customProp = new Hashtable
+        {
+            { isReady, PhotonNetwork.IsMasterClient }
+        };
         PhotonNetwork.LocalPlayer.SetCustomProperties(customProp);
     }
 
     public void TryAddBot()
     {
-        int maxPlayer = (PhotonNetwork.OfflineMode) ? soloMaxPlayer : PhotonNetwork.CurrentRoom.MaxPlayers;
+        int maxPlayer = PhotonNetwork.OfflineMode ? soloMaxPlayer : PhotonNetwork.CurrentRoom.MaxPlayers;
         if (playersList.childCount < maxPlayer)
         {
             AddBot();
@@ -101,7 +104,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
     {
         if (CheckIsReady())
         {
-            StartGame();
+             StartGame();
         }
         else
         {
@@ -114,6 +117,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         SetCustomPropForAll();
         string mapName = PlayerPrefs.GetString("MapName");
+        Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties);
         PhotonNetwork.LoadLevel(mapName);
     }
 
@@ -124,11 +128,13 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
             if (playerSettings.GetComponent<PlayerSettings>() != null)
             {
                 PlayerSettings settings = playerSettings.GetComponent<PlayerSettings>();
-                Hashtable table = new Hashtable();
-                table.Add("Race", settings.raceDropdown.value);
-                table.Add("Team", settings.teamDropdown.value);
-                table.Add("Color", settings.colorDropdown.value);
-                table.Add("MyCoords", SetCoords(settings.teamDropdown.value));
+                Hashtable table = new Hashtable
+                {
+                    { "Race", settings.raceDropdown.value },
+                    { "Team", settings.teamDropdown.value },
+                    { "Color", settings.colorDropdown.value },
+                    { "MyCoords", SetCoords(settings.teamDropdown.value) }
+                };
                 playerSettings.GetComponent<PhotonView>().Owner.SetCustomProperties(table);
             }
         }
