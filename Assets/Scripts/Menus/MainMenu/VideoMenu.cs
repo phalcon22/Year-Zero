@@ -34,6 +34,9 @@ public class VideoMenu : MonoBehaviour {
 
         for (int i = 0; i < resolutions.Length; i++)
         {
+            if (Mathf.RoundToInt(resolutions[i].width / (float)resolutions[i].height * 100) != 178)
+                continue;
+
             string tmp = resolutions[i].width + " x " + resolutions[i].height + " " +
                 Mathf.Round((float)resolutions[i].refreshRateRatio.value) + "Hz";
             options.Add(tmp);
