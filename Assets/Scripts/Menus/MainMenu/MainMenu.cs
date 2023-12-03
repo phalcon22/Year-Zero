@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class MainMenu : MonoBehaviourPunCallbacks {
 
@@ -42,7 +41,7 @@ public class MainMenu : MonoBehaviourPunCallbacks {
     {
         if (!PlayerPrefs.HasKey(playerNamePrefKey))
         {
-            PlayerPrefs.SetString(playerNamePrefKey, "Default Name");
+            PlayerPrefs.SetString(playerNamePrefKey, Environment.UserName);
         }
         PhotonNetwork.NickName = PlayerPrefs.GetString(playerNamePrefKey);
     }
