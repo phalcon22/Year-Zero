@@ -86,17 +86,33 @@ public class MultiplayerTools : MonoBehaviour
     public static Color32 Int2Color(int val)
     {
         Color32 res;
-        if (val == 0)
+        switch (val)
         {
+        case 0: // Red
             res = new Color32(255, 0, 0, 255);
-        }
-        else if (val == 1)
-        {
+            break;
+        case 1: // Green
             res = new Color32(0, 255, 0, 255);
-        }
-        else
-        {
+            break;
+        case 2: // Blue
             res = new Color32(0, 0, 255, 255);
+            break;
+        case 3: // Orange
+            res = new Color32(255, 127, 39, 255);
+            break;
+        case 4: // Pink
+            res = new Color32(255, 174, 201, 255);
+            break;
+        case 5: // White
+            res = new Color32(255, 255, 255, 255);
+            break;
+        case 6: // Yellow
+            res = new Color32(255, 242, 0, 255);
+            break;
+        default:
+            res = new Color32(0, 0, 0, 255);
+            Debug.LogError("Wrong color selected");
+            break;
         }
         return res;
     }
