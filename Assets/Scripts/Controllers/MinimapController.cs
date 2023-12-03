@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MinimapController : MonoBehaviour
 {
@@ -53,8 +51,8 @@ public class MinimapController : MonoBehaviour
     public bool MouseOnMinimap()
     {
         Vector3 vec = Input.mousePosition;
-        return (vec[0] >= camLeft && vec[0] <= camRight &&
-            vec[1] >= camBottom && vec[1] <= camTop);
+        return vec[0] >= camLeft && vec[0] <= camRight &&
+            vec[1] >= camBottom && vec[1] <= camTop;
     }
 
     public Vector3 MinimapToWorldSpaceCoords()
