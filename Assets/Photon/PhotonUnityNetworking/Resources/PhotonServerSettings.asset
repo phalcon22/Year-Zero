@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: dc95d91e-1e83-44c2-a12c-575f8dd9e87d
+    AppIdRealtime: 
+    AppIdFusion: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -21,46 +22,18 @@ MonoBehaviour:
     FixedRegion: 
     Server: 
     Port: 0
+    ProxyServer: 
     Protocol: 0
+    EnableProtocolFallback: 1
+    AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  StartInOfflineMode: 0
-  PunLogging: 2
+  DevRegion: 
+  PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
-  RpcList:
-  - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
-  - AddUnit
-  - AddUnitToAll
-  - RemoveUnitToAll
-  - Test
-  - RemoveFromLists
-  - SetCoords
-  - CheckIsReady
-  - TakeDamage
-  - Init
-  - CreateMarker
-  - UpdateSlot
-  - SetParent
-  - RPCSendResources
-  - RPCSendMessage
-  - RPCHealth
-  - Hacked
-  - RPCHacked
-  - RPCCreateMarker
-  - RPCHeal
-  - TakeDamae
-  - RPCTakeDamage
-  - RPCSetBotIndex
-  - SetForce
-  - RPCAllSelectableRemoveAt
-  - SetParameters
-  - RPCAllResourceUnitsRemoveAt
-  - RPCInitUnit
-  - RPCInitDestructible
-  - RPCCheckWin
-  - SetHolder
+  StartInOfflineMode: 0
+  RpcList: []
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
+  ShowSettings: 0
+  DevRegionSetOnce: 0
