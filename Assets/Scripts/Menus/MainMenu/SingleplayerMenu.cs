@@ -27,10 +27,10 @@ public class SingleplayerMenu : MonoBehaviour
 
     public void StartEndlessMode()
     {
-        if ((PlayerPrefs.GetInt("missionCleared", 0) == 1))
+        if (PlayerPrefs.GetInt("missionCleared", 0) == 1)
         {
             PhotonNetwork.LoadLevel("EndlessMode");
-            FindObjectOfType<AudioManager>().PlaySound("BattleMusic");
+            FindFirstObjectByType<AudioManager>().PlaySound("BattleMusic");
         }
         else
         {

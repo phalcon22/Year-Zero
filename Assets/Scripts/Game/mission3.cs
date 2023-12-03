@@ -37,13 +37,13 @@ public class mission3 : MonoBehaviour
         if(timer == 0 && isFirstTick)
         {
             isFirstTick = false;
-            FindObjectOfType<AudioManager>().PlaySound(voicesToPlay[0]);            
+            FindFirstObjectByType<AudioManager>().PlaySound(voicesToPlay[0]);            
         }
         if (InstanceManager.instanceManager.allSelectableObjs.Count -
             InstanceManager.instanceManager.mySelectableObjs.Count == 0)
         {
             Sucess = true;
-            FindObjectOfType<AudioManager>().PlaySound(voicesToPlay[1]);
+            FindFirstObjectByType<AudioManager>().PlaySound(voicesToPlay[1]);
             finishtimer = timer;
         }
         if (Sucess && timer == finishtimer + 25)
@@ -56,7 +56,7 @@ public class mission3 : MonoBehaviour
     {
         PlayerPrefs.SetInt("mission3Cleared",1);
         PhotonNetwork.LoadLevel("MainMenu");
-        FindObjectOfType<AudioManager>().PlaySound("MainMenuMusic");
+        FindFirstObjectByType<AudioManager>().PlaySound("MainMenuMusic");
     }   
 
  

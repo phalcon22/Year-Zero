@@ -44,7 +44,7 @@ public class GameMenu : MonoBehaviour {
         else
         {
             
-            FindObjectOfType<AudioManager>().PlaySound("MainMenuMusic");
+            FindFirstObjectByType<AudioManager>().PlaySound("MainMenuMusic");
             PhotonNetwork.LoadLevel("MainMenu");
         }
             

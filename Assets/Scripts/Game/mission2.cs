@@ -25,14 +25,14 @@ public class mission2 : MonoBehaviour
          int timer = (int)InstanceManager.instanceManager.timer;
         if (timer == 1 && isFirstTick)
         {
-            FindObjectOfType<AudioManager>().PlaySound(voicesToPlay[0]);
+            FindFirstObjectByType<AudioManager>().PlaySound(voicesToPlay[0]);
             isFirstTick = false;
         }
         if (timer == 9 && !isFirstTick) isFirstTick = true;
         
          if (timer == 25 && isFirstTick)
          {             
-             FindObjectOfType<AudioManager>().PlaySound(voicesToPlay[1]);
+             FindFirstObjectByType<AudioManager>().PlaySound(voicesToPlay[1]);
              isFirstTick = false;
              Wave(wave);
              wave++;            
@@ -43,7 +43,7 @@ public class mission2 : MonoBehaviour
 
         if (timer == 65)
         {
-            FindObjectOfType<AudioManager>().PlaySound(voicesToPlay[2]);
+            FindFirstObjectByType<AudioManager>().PlaySound(voicesToPlay[2]);
             independentBotPrefab.GetComponent<BotArmyManager>().STOPRUSH();
             isFirstTick = true;
         }
@@ -51,7 +51,7 @@ public class mission2 : MonoBehaviour
         if ((InstanceManager.instanceManager.allSelectableObjs.Count -
             InstanceManager.instanceManager.mySelectableObjs.Count == 0 && wave == 3) || timer > 600 && isFirstTick)
         {
-            FindObjectOfType<AudioManager>().PlaySound(voicesToPlay[3]);
+            FindFirstObjectByType<AudioManager>().PlaySound(voicesToPlay[3]);
             Wave(3);
             independentBotPrefab.GetComponent<BotArmyManager>().SendArmyMission2(new Vector3(-40,0,-40));
             wave++;
@@ -68,7 +68,7 @@ public class mission2 : MonoBehaviour
     {
         PlayerPrefs.SetInt("mission2Cleared",1);
         PhotonNetwork.LoadLevel("MainMenu");
-        FindObjectOfType<AudioManager>().PlaySound("MainMenuMusic");
+        FindFirstObjectByType<AudioManager>().PlaySound("MainMenuMusic");
     }   
     void Wave(int n)
     {

@@ -11,15 +11,15 @@ public class CampaignMenu : MonoBehaviourPunCallbacks
     public void StartTuto()
      {
         PhotonNetwork.LoadLevel(4);
-        FindObjectOfType<AudioManager>().PlaySound("UniverseMusic");
+        FindFirstObjectByType<AudioManager>().PlaySound("UniverseMusic");
      }
  
      public void StartMission()
      {
-         if ((PlayerPrefs.GetInt("tutoCleared",0)==1))
+         if (PlayerPrefs.GetInt("tutoCleared",0)==1)
          {
              PhotonNetwork.LoadLevel(5);
-             FindObjectOfType<AudioManager>().PlaySound("BattleMusic");
+             FindFirstObjectByType<AudioManager>().PlaySound("BattleMusic");
          }
          else
          {
@@ -29,10 +29,10 @@ public class CampaignMenu : MonoBehaviourPunCallbacks
      
      public void StartMission2()
      {
-         if ((PlayerPrefs.GetInt("missionCleared",0)==1))
+         if (PlayerPrefs.GetInt("missionCleared",0)==1)
          {
              PhotonNetwork.LoadLevel("Mission2");
-             FindObjectOfType<AudioManager>().PlaySound("BattleMusic");
+             FindFirstObjectByType<AudioManager>().PlaySound("BattleMusic");
          }
          else
          {
@@ -42,10 +42,10 @@ public class CampaignMenu : MonoBehaviourPunCallbacks
      
      public void StartMission3()
      {
-         if ((PlayerPrefs.GetInt("mission2Cleared",0)==1))
+         if (PlayerPrefs.GetInt("mission2Cleared",0)==1)
          {
              PhotonNetwork.LoadLevel("Mission3");
-             FindObjectOfType<AudioManager>().PlaySound("BattleMusic");
+             FindFirstObjectByType<AudioManager>().PlaySound("BattleMusic");
          }
          else
          {

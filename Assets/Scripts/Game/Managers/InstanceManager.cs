@@ -46,11 +46,11 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
             InitBots();
         if (SceneManager.GetActiveScene().name == "GameTest")
         {
-            if (FindObjectOfType<AudioManager>() == null)
+            if (FindFirstObjectByType<AudioManager>() == null)
             {
                 Instantiate(audioManagerPrefab);
             }
-            FindObjectOfType<AudioManager>().PlayRandomSound(new []{"UniverseMusic","09. Genesis","06. Spatial Lullaby"} );
+            FindFirstObjectByType<AudioManager>().PlayRandomSound(new []{"UniverseMusic","09. Genesis","06. Spatial Lullaby"} );
         }
     }
 

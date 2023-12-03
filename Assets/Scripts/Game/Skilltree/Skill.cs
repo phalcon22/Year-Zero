@@ -57,14 +57,14 @@ public class Skill : MonoBehaviour
             case 0:
                 if (SkilltreeManager.manager.amountPaid >= 200)
                 {
-                    FindObjectOfType<AudioManager>().PlaySound("14. Sigma Tauri" );
+                    FindFirstObjectByType<AudioManager>().PlaySound("14. Sigma Tauri" );
                     SkilltreeManager.manager.tier++;
                 }
                 break;
             case 1:
                 if (SkilltreeManager.manager.amountPaid >= 500)
                 {
-                    FindObjectOfType<AudioManager>().PlayRandomSound(
+                    FindFirstObjectByType<AudioManager>().PlayRandomSound(
                         new []{"01. Stellaris Suite (Creation & Beyond)","04. To the Ends of the Galaxy (Instrumental)","08. Alpha Centauri"} );
                     SkilltreeManager.manager.tier++;
                 }
@@ -72,28 +72,28 @@ public class Skill : MonoBehaviour
             case 2:
                 if (SkilltreeManager.manager.amountPaid >= 1250)
                 {
-                    FindObjectOfType<AudioManager>().PlayRandomSound(new []{"03. Deep Space Travels","05. In Search of Life","12. Pillars of Creation"} );
+                    FindFirstObjectByType<AudioManager>().PlayRandomSound(new []{"03. Deep Space Travels","05. In Search of Life","12. Pillars of Creation"} );
                     SkilltreeManager.manager.tier++;
                 }
                 break;
             case 3:
                 if (SkilltreeManager.manager.amountPaid >= 2250)
                 {
-                    FindObjectOfType<AudioManager>().PlayRandomSound(new []{"02. Faster Than Light","05. In Search of Life","19. Distant Nebula"} );
+                    FindFirstObjectByType<AudioManager>().PlayRandomSound(new []{"02. Faster Than Light","05. In Search of Life","19. Distant Nebula"} );
                     SkilltreeManager.manager.tier++;
                 }
                 break;
             case 4:
                 if (SkilltreeManager.manager.amountPaid >= 3500)
                 {
-                    FindObjectOfType<AudioManager>().PlayRandomSound(new []{"05. In Search of Life","15. Journey Through the Galaxy"} );
+                    FindFirstObjectByType<AudioManager>().PlayRandomSound(new []{"05. In Search of Life","15. Journey Through the Galaxy"} );
                     SkilltreeManager.manager.tier++;
                 }
                 break;
             case 5:
                 if (SkilltreeManager.manager.amountPaid >= 5000)
                 {
-                    FindObjectOfType<AudioManager>().PlayRandomSound(new []{"18. Luminescence","10. The Celestial City","11. Infinite Being (Instrumental)"} );
+                    FindFirstObjectByType<AudioManager>().PlayRandomSound(new []{"18. Luminescence","10. The Celestial City","11. Infinite Being (Instrumental)"} );
                     SkilltreeManager.manager.tier++;
                 }
                 break;

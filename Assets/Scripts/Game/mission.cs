@@ -51,7 +51,7 @@ public class mission : MonoBehaviour
             independentBotPrefab.GetComponent<BotArmyManager>().SendArmy(new Vector3(0,0,5));
             Background.SetActive(true);
             Display.text = messageOfWave[waveCount];
-            FindObjectOfType<AudioManager>().PlaySound(voicesToPlay[waveCount]);
+            FindFirstObjectByType<AudioManager>().PlaySound(voicesToPlay[waveCount]);
         }
 
         if (timer == waveTime+1)
@@ -87,7 +87,7 @@ public class mission : MonoBehaviour
     {
         PlayerPrefs.SetInt("missionCleared",1);
         PhotonNetwork.LoadLevel("MainMenu");
-        FindObjectOfType<AudioManager>().PlaySound("MainMenuMusic");
+        FindFirstObjectByType<AudioManager>().PlaySound("MainMenuMusic");
     }
     void Wave()
     {

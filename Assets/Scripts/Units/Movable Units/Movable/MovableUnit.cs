@@ -47,7 +47,7 @@ public class MovableUnit : DestructibleUnit {
         
         if (botIndex == -1 && photonView.IsMine && InstanceManager.instanceManager.timer > 1) 
         {
-            FindObjectOfType<AudioManager>().PlaySound("UnitSpawn");
+            FindFirstObjectByType<AudioManager>().PlaySound("UnitSpawn");
         }
     }
 

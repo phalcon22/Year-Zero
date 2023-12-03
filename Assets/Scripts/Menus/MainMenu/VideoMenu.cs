@@ -35,7 +35,7 @@ public class VideoMenu : MonoBehaviour {
         for (int i = 0; i < resolutions.Length; i++)
         {
             string tmp = resolutions[i].width + " x " + resolutions[i].height + " " +
-                resolutions[i].refreshRate + "Hz";
+                resolutions[i].refreshRateRatio + "Hz";
             options.Add(tmp);
 
             if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)

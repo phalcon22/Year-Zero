@@ -220,7 +220,7 @@ public class Tutorial : MonoBehaviour
                 break;
             case 22:
                 PhotonNetwork.LoadLevel("MainMenu");
-                FindObjectOfType<AudioManager>().PlaySound("MainMenuMusic");
+                FindFirstObjectByType<AudioManager>().PlaySound("MainMenuMusic");
                 break;
             
         }    
