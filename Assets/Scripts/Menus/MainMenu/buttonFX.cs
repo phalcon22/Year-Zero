@@ -15,6 +15,7 @@ public class buttonFX : MonoBehaviour
 
     public void ClickSound()
     {
-        myFX.PlayOneShot(clickFX);
+        if (clickFX != null)
+            myFX.PlayOneShot(clickFX);
     }
 }
