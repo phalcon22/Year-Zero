@@ -4,8 +4,6 @@ public class MinimapController : MonoBehaviour
 {
     [SerializeField]
     RectTransform img;
-    [SerializeField]
-    RectTransform minimapSquare;
 
     [SerializeField]
     Canvas cnvs;
@@ -24,8 +22,11 @@ public class MinimapController : MonoBehaviour
     float scaleX;
     float scaleZ;
 
-    float mainCamWidth;
-    float mainCamHeight;
+
+    [SerializeField] DrawUILine topLine;
+    [SerializeField] DrawUILine bottomLine;
+    [SerializeField] DrawUILine leftLine;
+    [SerializeField] DrawUILine rightLine;
 
     private void Start()
     {
@@ -35,17 +36,12 @@ public class MinimapController : MonoBehaviour
         camBottom = img.position.y - img.rect.height * cnvs.scaleFactor / 2;
         camLeft = img.position.x - img.rect.width * cnvs.scaleFactor / 2;
         camRight = img.position.x + img.rect.width * cnvs.scaleFactor / 2;
-        SetSquareSize();
         UpdateMinimapSquare();
     }
 
     public void UpdateMinimapSquare()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
-        {
-            minimapSquare.position = WorldSpaceToMinimap(hit.point);
-        }
+        SetSquareSize();
     }
 
     public bool MouseOnMinimap()
@@ -90,29 +86,36 @@ public class MinimapController : MonoBehaviour
 
     void SetSquareSize()
     {
-        float top;
-        float left;
-        float bottom;
-        float right;
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 1, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0, 1, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
         {
-            top = hit.point.z;
+            Vector2 topLeft = new Vector2(hit.point.x, hit.point.z);
 
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(1, 0, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(1, 1, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
             {
-                right = hit.point.x;
-                bottom = hit.point.z;
+                Vector2 topRight = new Vector2(hit.point.x, hit.point.z);
 
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0, 0, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(1, 0, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
                 {
-                    left = hit.point.x;
+                    Vector2 bottomRight = new Vector2(hit.point.x, hit.point.z);
 
-                    mainCamHeight = (top - bottom) / scaleZ;
-                    mainCamWidth = (right - left) / scaleX;
+                    if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0, 0, 0)), out hit, Mathf.Infinity, fakeGroundLayer))
+                    {
+                        Vector2 bottomLeft = new Vector2(hit.point.x, hit.point.z);
+
+                        Vector2 topLeft2 = WorldSpaceToMinimap(new Vector3(topLeft.x, 0, topLeft.y));
+                        Vector2 topRight2 = WorldSpaceToMinimap(new Vector3(topRight.x, 0, topRight.y));
+                        Vector2 bottomLeft2 = WorldSpaceToMinimap(new Vector3(bottomLeft.x, 0, bottomLeft.y));
+                        Vector2 bottomRight2 = WorldSpaceToMinimap(new Vector3(bottomRight.x, 0, bottomRight.y));
+
+                        float mult = cnvs.scaleFactor;
+                        topLine.DrawLine(topLeft2, topRight2, mult);
+                        bottomLine.DrawLine(bottomLeft2, bottomRight2, mult);
+                        leftLine.DrawLine(topLeft2, bottomLeft2, mult);
+                        rightLine.DrawLine(topRight2, bottomRight2, mult);
+                    }
                 }
             }
         }
-        minimapSquare.sizeDelta = new Vector2(mainCamWidth, mainCamHeight);
     }
 }
