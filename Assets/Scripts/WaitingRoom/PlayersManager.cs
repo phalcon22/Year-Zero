@@ -43,12 +43,6 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
     PlayerSettings playerSettings;
 
-    #region customProp
-
-    string isReady = "IsReady";
-
-    #endregion
-
     void Start()
     {
         timer = 0.3f;
@@ -67,7 +61,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
         customProp = new Hashtable
         {
-            { isReady, PhotonNetwork.IsMasterClient }
+            { "IsReady", PhotonNetwork.IsMasterClient }
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(customProp);
     }
@@ -117,7 +111,6 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         SetCustomPropForAll();
         string mapName = PlayerPrefs.GetString("MapName");
-        Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties);
         PhotonNetwork.LoadLevel(mapName);
     }
 
@@ -174,7 +167,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
     public void ToggleReady(bool val)
     {
-        customProp[isReady] = val;
+        customProp["IsReady"] = val;
         PhotonNetwork.LocalPlayer.SetCustomProperties(customProp);
 
         if (val)
@@ -185,14 +178,13 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
     bool CheckIsReady()
     {
-        bool allReady = true;
         Player[] players = PhotonNetwork.PlayerList;
-        for (int i = 0; allReady && i < players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
-            if ((bool)players[i].CustomProperties[isReady] == false)
-                allReady = false;
+            if (!(bool)players[i].CustomProperties["IsReady"])
+                return false;
         }
-        return allReady;
+        return true;
     }
 
     public void LeaveRoom()
