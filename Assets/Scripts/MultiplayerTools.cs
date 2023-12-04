@@ -109,6 +109,9 @@ public class MultiplayerTools : MonoBehaviour
         case 6: // Yellow
             res = new Color32(255, 242, 0, 255);
             break;
+        case 7: // Grey
+            res = new Color32(127, 127, 127, 255);
+            break;
         default:
             res = new Color32(0, 0, 0, 255);
             Debug.LogError("Wrong color selected");

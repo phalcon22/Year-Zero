@@ -27,6 +27,7 @@ public class WaitingRoomSettings : MonoBehaviourPunCallbacks, IPunObservable
             raceDropdown.interactable = true;
             teamDropdown.interactable = true;
             colorDropdown.interactable = true;
+            colorDropdown.value = (transform.parent.childCount - 1) % colorDropdown.options.Count;
         }
     }
 

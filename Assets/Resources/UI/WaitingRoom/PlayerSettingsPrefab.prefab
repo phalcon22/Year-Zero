@@ -2110,6 +2110,8 @@ MonoBehaviour:
       m_Image: {fileID: 21300000, guid: 38a6ab39482b37f44a2c11a4a6dadeb4, type: 3}
     - m_Text: Option G
       m_Image: {fileID: 21300000, guid: b42afcfb4b7d25c4fa53c756ce82bcf5, type: 3}
+    - m_Text: Option G
+      m_Image: {fileID: 21300000, guid: 2a2af6e7f72a72a4fb26d0b8c4e89248, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
