@@ -125,7 +125,7 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
     {
         if (GetNearestEnemy() == null)
         {
-            GameObject.Find("WinScreen").GetComponent<DeathScreen>().Show();
+            GameObject.Find("WinScreen").GetComponent<WinScreen>().Show();
         }
     }
 

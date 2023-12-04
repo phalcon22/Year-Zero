@@ -142,7 +142,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
             if (playerSettings.GetComponent<BotSettings>() != null)
             {
                 BotSettings settings = playerSettings.GetComponent<BotSettings>();
-                string prefix = "Bot" + playerSettings.GetComponent<PhotonView>().Owner.ActorNumber.ToString();
+                string prefix = "Bot" + i;
                 roomProperties.Add(prefix + "Race", settings.raceDropdown.value);
                 roomProperties.Add(prefix + "Team", settings.teamDropdown.value);
                 roomProperties.Add(prefix + "Color", settings.colorDropdown.value);
