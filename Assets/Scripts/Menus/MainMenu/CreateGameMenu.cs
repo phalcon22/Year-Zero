@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -8,8 +7,9 @@ using Photon.Realtime;
 public class CreateGameMenu : MonoBehaviour {
 
     private string gameName;
-    private byte maxPlayer = 4;
     private string mapName;
+
+    private int maxPlayer;
 
     [SerializeField]
     private string[] maps;
@@ -74,12 +74,13 @@ public class CreateGameMenu : MonoBehaviour {
     void InitMaxPlayerDropdown()
     {
         List<string> tmp = new List<string>();
-        for (int i = 2; i < 5; i++)
+        for (int i = 2; i <= 8; i++)
         {
-            tmp.Add((i).ToString());
+            tmp.Add(i.ToString());
         }
         maxPlayerDropdown.AddOptions(tmp);
-        maxPlayerDropdown.value = maxPlayer - 2;
+        maxPlayerDropdown.value = maxPlayerDropdown.options.Count - 1;
+        maxPlayer = int.Parse(maxPlayerDropdown.options[^1].text);
     }
 
     #endregion
@@ -117,13 +118,14 @@ public class CreateGameMenu : MonoBehaviour {
 
     public void SetMaxPlayer(int value)
     {
-        maxPlayer = (byte)(value + 2);
+        maxPlayer = value + 2;
     }
 
     void CreateGame()
     {
         PlayerPrefs.SetString("MapName", mapName);
-        PhotonNetwork.CreateRoom(gameName, new RoomOptions { MaxPlayers = maxPlayer });
+        PlayerPrefs.SetInt("MaxPlayers", maxPlayer);
+        PhotonNetwork.CreateRoom(gameName, new RoomOptions { MaxPlayers = Mathf.Min(maxPlayer, 4) });
     }
 
     public void SelectMap(Transform button)

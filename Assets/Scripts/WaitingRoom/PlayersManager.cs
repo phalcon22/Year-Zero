@@ -7,8 +7,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayersManager : MonoBehaviourPunCallbacks {
 
-    readonly int soloMaxPlayer = 4;
-
     Hashtable customProp;
     [SerializeField]
     Button startButton;
@@ -43,8 +41,12 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
     PlayerSettings playerSettings;
 
+    int maxPlayers;
+    int botCount = 0;
+
     void Start()
     {
+        maxPlayers = PlayerPrefs.GetInt("MaxPlayers");
         timer = 0.3f;
         if (PhotonNetwork.IsMasterClient)
             coords = new List<Vector3>[4] { topLeft, bottomLeft , topRight , bottomRight };
@@ -68,8 +70,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
     public void TryAddBot()
     {
-        int maxPlayer = PhotonNetwork.OfflineMode ? soloMaxPlayer : PhotonNetwork.CurrentRoom.MaxPlayers;
-        if (playersList.childCount < maxPlayer)
+        if (!LobbyFull())
         {
             AddBot();
         }
@@ -81,7 +82,18 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
 
     void AddBot()
     {
+        botCount++;
         PhotonNetwork.Instantiate("UI/WaitingRoom/BotSettingsPrefab", Vector3.zero, Quaternion.identity);
+
+        if (LobbyFull())
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+    }
+
+    public void OnBotRemoved()
+    {
+        botCount--;
+        if (!LobbyFull())
+            PhotonNetwork.CurrentRoom.IsOpen = true;
     }
 
     void Update()
@@ -92,6 +104,19 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
         {
             TryStartGame();
         }
+    }
+
+    bool LobbyFull()
+    {
+        return GetPlayerCount() >= maxPlayers;
+    }
+
+    int GetPlayerCount()
+    {
+        if (PhotonNetwork.OfflineMode)
+            return 1 + botCount;
+        else
+            return PhotonNetwork.CurrentRoom.PlayerCount + botCount;
     }
 
     public void TryStartGame()
@@ -196,6 +221,12 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
         PhotonNetwork.LoadLevel("MainMenu");
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (!LobbyFull())
+            PhotonNetwork.CurrentRoom.IsOpen = true;
+    }
+
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         Debug.Log("Master Client switched to" + newMasterClient.NickName);
@@ -205,14 +236,14 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
     void UpdatePlayerAmountText()
     {
         if (playersList == null || !PhotonNetwork.InRoom) return; 
-        playerAmountText.text = playersList.childCount + "/" + ((PhotonNetwork.OfflineMode) ? soloMaxPlayer : PhotonNetwork.CurrentRoom.MaxPlayers);
+        playerAmountText.text = GetPlayerCount() + "/" + maxPlayers;
     }
 
     [SerializeField] Canvas cnvs;
     void UpdateWaitingMessage()
     {
         if (playersList == null || !PhotonNetwork.InRoom) return;
-        waittingMessage.SetActive(!PhotonNetwork.OfflineMode && playersList.childCount < PhotonNetwork.CurrentRoom.MaxPlayers);
+        waittingMessage.SetActive(!LobbyFull());
         if (PhotonNetwork.OfflineMode) return;
         UpdateDots();
         UpdateWaitingMessagePos();
@@ -224,7 +255,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
         if (timer <= 0)
         {
             timer = 0.3f;
-            waittingDots.text = (waittingDots.text.Length == 5) ? "" : new string('.', (waittingDots.text.Length + 1));
+            waittingDots.text = (waittingDots.text.Length == 5) ? "" : new string('.', waittingDots.text.Length + 1);
         }
     }
 

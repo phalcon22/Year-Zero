@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using Photon.Pun;
-using Photon.Realtime;
+﻿using Photon.Pun;
 
 public class BotSettings : WaitingRoomSettings
 {
@@ -15,5 +11,6 @@ public class BotSettings : WaitingRoomSettings
     public override void Kick()
     {
         PhotonNetwork.Destroy(photonView);
+        FindFirstObjectByType<PlayersManager>().OnBotRemoved();
     }
 }
