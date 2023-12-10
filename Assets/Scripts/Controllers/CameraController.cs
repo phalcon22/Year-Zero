@@ -45,19 +45,19 @@ public class CameraController : MonoBehaviour {
 
     void CheckInputs()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.W))
         {
             pos.z += PlayerPrefs.GetFloat("camMoveKeySpeed") * 2 * panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
             pos.z -= PlayerPrefs.GetFloat("camMoveKeySpeed") * 2 * panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.A))
         {
             pos.x -= PlayerPrefs.GetFloat("camMoveKeySpeed") * 2 * panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             pos.x += PlayerPrefs.GetFloat("camMoveKeySpeed") * 2 * panSpeed * Time.deltaTime;
         }
