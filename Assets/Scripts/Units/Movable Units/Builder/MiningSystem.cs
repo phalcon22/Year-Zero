@@ -16,7 +16,7 @@ public class MiningSystem : MonoBehaviour
     const int resourceMax = 50;
     public ResourceUnit currentResourceUnit { get; private set; }
     Resources lastMinedResource;
-    private float speedMining = 2f;
+    private float speedMining = 3f;
 
     void Start()
     {
@@ -87,7 +87,7 @@ public class MiningSystem : MonoBehaviour
             {
                 if (currentResourceUnit.StillResource())
                 {
-                    resourceAmount += currentResourceUnit.TakeResource(speedMining * SkilltreeManager.manager.miningSpeed);
+                    resourceAmount += currentResourceUnit.TakeResource(speedMining * SkilltreeManager.manager.miningSpeed * Time.deltaTime);
                 }
                 else
                 {
