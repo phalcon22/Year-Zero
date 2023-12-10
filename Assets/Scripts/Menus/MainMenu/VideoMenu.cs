@@ -13,7 +13,7 @@ public class VideoMenu : MonoBehaviour {
     [SerializeField]
     private Dropdown resolutionDropdown;
 
-    private Resolution[] resolutions;
+    private List<Resolution> resolutions = new();
 
     void OnEnable()
     {
@@ -25,26 +25,29 @@ public class VideoMenu : MonoBehaviour {
 
     private void InitResolutionDropDown()
     {
-        resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
 
-        for (int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < Screen.resolutions.Length; i++)
         {
-            if (Mathf.RoundToInt(resolutions[i].width / (float)resolutions[i].height * 100) != 178)
+            Resolution cur = Screen.resolutions[i];
+
+            if (Mathf.RoundToInt(cur.width / (float)cur.height * 100) != 178)
                 continue;
 
-            string tmp = resolutions[i].width + " x " + resolutions[i].height + " " +
-                Mathf.Round((float)resolutions[i].refreshRateRatio.value) + "Hz";
+            string tmp = cur.width + " x " + cur.height + " " +
+                Mathf.Round((float)cur.refreshRateRatio.value) + "Hz";
             options.Add(tmp);
 
-            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+            if (cur.width == Screen.width && cur.height == Screen.height)
             {
-                currentResolutionIndex = i;
+                currentResolutionIndex = resolutions.Count;
             }
+
+            resolutions.Add(cur);
         }
 
         resolutionDropdown.AddOptions(options);
