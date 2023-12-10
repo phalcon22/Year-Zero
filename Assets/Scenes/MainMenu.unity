@@ -1434,6 +1434,7 @@ MonoBehaviour:
   video: {fileID: 369154589}
   sound: {fileID: 180979671}
   gameplay: {fileID: 6767246049557253418}
+  version: {fileID: 1346637263}
 --- !u!114 &181676894
 MonoBehaviour:
   m_ObjectHideFlags: 0

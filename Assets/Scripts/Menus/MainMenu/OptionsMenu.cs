@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour {
 
@@ -12,6 +12,14 @@ public class OptionsMenu : MonoBehaviour {
     private GameObject sound;
     [SerializeField]
     GameObject gameplay;
+
+    [SerializeField]
+    Text version;
+
+    void Start()
+    {
+        version.text = "Version " + Application.version;
+    }
 
     public void ChangePseudoMenu()
     {
