@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DiscordPresence;
+﻿using DiscordPresence;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +14,9 @@ public class UpdatePresence : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "GameTest":
+                message = PhotonNetwork.OfflineMode ? "Dans une partie en solo": "Dans une partie en ligne";
+                break;
+            case "NoMansSpace":
                 message = PhotonNetwork.OfflineMode ? "Dans une partie en solo": "Dans une partie en ligne";
                 break;
             case "MainMenu":

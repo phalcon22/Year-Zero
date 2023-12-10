@@ -44,7 +44,7 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
         InitStartingTroops(InitProp());
         if (PhotonNetwork.IsMasterClient)
             InitBots();
-        if (SceneManager.GetActiveScene().name == "GameTest")
+        if (SceneManager.GetActiveScene().name == "GameTest" || SceneManager.GetActiveScene().name == "NoMansSpace")
         {
             if (FindFirstObjectByType<AudioManager>() == null)
             {
@@ -82,7 +82,7 @@ public class InstanceManager : MonoBehaviourPunCallbacks {
     Vector3 InitProp()
     {
         Vector3 myCoords;
-        if (!PhotonNetwork.OfflineMode && SceneManager.GetActiveScene().name != "Tutorial" || SceneManager.GetActiveScene().name == "GameTest" && !offlineMode)
+        if (!PhotonNetwork.OfflineMode && SceneManager.GetActiveScene().name != "Tutorial" || (SceneManager.GetActiveScene().name == "GameTest" || SceneManager.GetActiveScene().name == "NoMansSpace") && !offlineMode)
         {
             myCoords = (Vector3)PhotonNetwork.CurrentRoom.CustomProperties["Player" + PhotonNetwork.LocalPlayer.ActorNumber + "MyCoords"];
 

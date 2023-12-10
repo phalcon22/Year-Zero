@@ -3003,8 +3003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f11692e38381d4680b43b7bb132dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maps:
-  - GameTest
+  maps: {fileID: 11400000, guid: 1baa6ada6a9d9ea4d8916d109586c973, type: 2}
   mapButton: {fileID: 1880510570426776, guid: 783cbf0f72cd13249a3aa6e868db856d, type: 3}
   gameNameText: {fileID: 918990557}
   maxPlayerDropdown: {fileID: 1663990592}

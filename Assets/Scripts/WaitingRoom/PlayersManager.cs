@@ -141,7 +141,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks {
     {
         if (propertiesThatChanged.ContainsKey("GameReady"))
         {
-            string mapName = PlayerPrefs.GetString("MapName");
+            string mapName = PlayerPrefs.GetString("MapScene");
             PhotonNetwork.LoadLevel(mapName);
         }
     }

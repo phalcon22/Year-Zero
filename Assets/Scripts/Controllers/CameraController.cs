@@ -99,7 +99,9 @@ public class CameraController : MonoBehaviour {
         pos.x = Mathf.Clamp(pos.x, -limitX, limitX);
 
 
-        bool input = Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.D) ||
+        bool input = Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.D)
+        || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)
+        || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
     Input.GetAxis("Mouse ScrollWheel") != 0 || Input.GetKey(KeyCode.KeypadPlus) || Input.GetKey(KeyCode.KeypadMinus) ||
     PlayerPrefs.GetInt("camMoveMouse") == 1 && (Input.mousePosition.y >= Screen.height - border || Input.mousePosition.y <= border
     || Input.mousePosition.x <= border || Input.mousePosition.x >= Screen.width - border);

@@ -7,12 +7,12 @@ using Photon.Realtime;
 public class CreateGameMenu : MonoBehaviour {
 
     private string gameName;
-    private string mapName;
+    private string mapScene;
 
     private int maxPlayer;
 
     [SerializeField]
-    private string[] maps;
+    private MapList maps;
 
     [SerializeField]
     private GameObject mapButton;
@@ -64,10 +64,10 @@ public class CreateGameMenu : MonoBehaviour {
 
     void InitMapButtons()
     {
-        foreach (string map in maps)
+        foreach (MapList.Map map in maps.maps)
         {
             GameObject obj = Instantiate(mapButton, scrollViewContent);
-            obj.GetComponentInChildren<Text>().text = map;
+            obj.GetComponentInChildren<Text>().text = map.name;
         }
     }
 
@@ -99,7 +99,7 @@ public class CreateGameMenu : MonoBehaviour {
 
     public void TryCreateGame()
     {
-        if (mapName == null)
+        if (mapScene == null)
         {
             noMap.Activate();
         }
@@ -123,7 +123,7 @@ public class CreateGameMenu : MonoBehaviour {
 
     void CreateGame()
     {
-        PlayerPrefs.SetString("MapName", mapName);
+        PlayerPrefs.SetString("MapScene", mapScene);
         PlayerPrefs.SetInt("MaxPlayers", maxPlayer);
         PhotonNetwork.CreateRoom(gameName, new RoomOptions { MaxPlayers = Mathf.Min(maxPlayer, 4) });
     }
@@ -131,7 +131,7 @@ public class CreateGameMenu : MonoBehaviour {
     public void SelectMap(Transform button)
     {
         selectedMapButton = button;
-        mapName = button.GetComponentInChildren<Text>().text;
+        mapScene = maps.GetSceneName(button.GetComponentInChildren<Text>().text);
         selectionBox.SetActive(true);
         selectionBox.transform.position = new Vector3(selectionBox.transform.position.x, button.position.y, selectionBox.transform.position.z);
         if (!PhotonNetwork.OfflineMode)

@@ -32,4 +32,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CinematicScene.unity
     guid: 2105c236a80dd9745a84fe58a6e6cc1e
+  - enabled: 1
+    path: Assets/Scenes/NoMansSpace.unity
+    guid: c47eb0fdd8f54ab4daff15b489a491ea
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
